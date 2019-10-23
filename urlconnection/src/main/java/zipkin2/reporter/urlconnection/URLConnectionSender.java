@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 The OpenZipkin Authors
+ * Copyright 2016-2019 The OpenZipkin Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -209,6 +209,7 @@ public final class URLConnectionSender extends Sender {
     connection.setReadTimeout(readTimeout);
     connection.setRequestMethod("POST");
     connection.addRequestProperty("Content-Type", mediaType);
+    connection.setRequestProperty("Authorization", "ONERA_AUTH_TOKEN");
     if (compressionEnabled) {
       connection.addRequestProperty("Content-Encoding", "gzip");
       ByteArrayOutputStream gzipped = new ByteArrayOutputStream();
