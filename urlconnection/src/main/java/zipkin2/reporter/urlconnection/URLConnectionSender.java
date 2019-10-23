@@ -209,7 +209,7 @@ public final class URLConnectionSender extends Sender {
     connection.setReadTimeout(readTimeout);
     connection.setRequestMethod("POST");
     connection.addRequestProperty("Content-Type", mediaType);
-    connection.setRequestProperty("Authorization", "ONERA_AUTH_TOKEN");
+    connection.addRequestProperty("Authorization", "8c00a34f2d53430593821698f383ca8e977d4442f004956918b845e461da40b993b0e7b24d5b7fc79c0d4a5cc6644ebc6957bf5ecf3d24b838367b202b148ef8");
     if (compressionEnabled) {
       connection.addRequestProperty("Content-Encoding", "gzip");
       ByteArrayOutputStream gzipped = new ByteArrayOutputStream();
