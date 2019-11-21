@@ -28,6 +28,8 @@ import zipkin2.codec.Encoding;
 import zipkin2.reporter.BytesMessageEncoder;
 import zipkin2.reporter.Sender;
 
+import com.onera.utils.google.pubsub.PubsubPublisher;
+
 /**
  * Reports spans to Zipkin, using its <a href="http://zipkin.io/zipkin-api/#/">POST</a> endpoint.
  *
@@ -226,6 +228,18 @@ public final class URLConnectionSender extends Sender {
     connection.getOutputStream().write(body);
 
     skipAllContent(connection);
+
+    String projectId = "atp-pub-sub";
+    String topicId = "zipkin-span-test";
+
+    try {
+      PubsubPublisher publisher = new PubsubPublisher(projectId, topicId);
+      String span = new String(body);
+      String msgID = publisher.publishMsgFinish(span);
+      publisher.shutDownPublisher();
+    } catch (Exception e) {
+      throw new IOException(e);
+    }
   }
 
   /** This utility is verbose as we have a minimum java version of 6 */
