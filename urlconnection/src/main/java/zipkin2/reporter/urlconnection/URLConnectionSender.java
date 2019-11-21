@@ -205,8 +205,7 @@ public final class URLConnectionSender extends Sender {
   }
 
   void send(byte[] body, String mediaType) throws IOException {
-    String span = new String(body);
-    System.out.println("========================= " + span);
+    String spanList = new String(body);
   
     // intentionally not closing the connection, so as to use keep-alives
     HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
@@ -237,7 +236,7 @@ public final class URLConnectionSender extends Sender {
 
     try {
       PubsubPublisher publisher = new PubsubPublisher(projectId, topicId);
-      String msgID = publisher.publishMsgFinish(span);
+      String msgID = publisher.publishMsgFinish(spanList);
       publisher.shutDownPublisher();
     } catch (Exception e) {
       throw new IOException(e);
